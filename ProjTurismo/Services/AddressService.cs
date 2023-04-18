@@ -61,7 +61,7 @@ namespace ProjTurismo.Services
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
             commandInsert.Parameters.Add(new SqlParameter("@Description", address.City.Description));
             //commandInsert.Parameters.Add(new SqlParameter("@DtCadastro", address.City.DtCadastro));
-            return (int)commandInsert.ExecuteScalar(); 
+            return (int)commandInsert.ExecuteScalar();
         }
 
         // Select
@@ -86,7 +86,7 @@ namespace ProjTurismo.Services
                 address.ZipCode = (string)reader["ZipCode"];
                 address.Complement = (string)reader["Complement"];
                 address.DtCadastre = (DateTime)reader["DtCadastre"];
-                address.City = new City() { Description = (string)reader["Description"]};
+                address.City = new City() { Description = (string)reader["Description"] };
 
                 addressLst.Add(address);
             }
@@ -103,5 +103,41 @@ namespace ProjTurismo.Services
             return (int)commandDelete.ExecuteNonQuery();
 
         }
+
+        //UPDATE 
+        //  update Address set stret = 'W', Neighborhood = 'W', Number = 222, ZipCode = 'WWW', Complement = 'W' where id = 2
+        public bool Update(int id, string stret, string nei, int number, string zipC, string compl)
+        {
+            Address address = new();
+            bool status = false;
+
+            try
+            {
+                string strUpdate = "update Address set Stret = @stret, Neighborhood = @Neighborhood," +
+                    " Number = @Number, ZipCode = @ZipCode, Complement = @Complement where Id = @Id";
+                SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
+
+
+                commandUpdate.Parameters.Add(new SqlParameter("@stret", stret));
+                commandUpdate.Parameters.Add(new SqlParameter("@Neighborhood", nei));
+                commandUpdate.Parameters.Add(new SqlParameter("@Number", number));
+                commandUpdate.Parameters.Add(new SqlParameter("@ZipCode", zipC));
+                commandUpdate.Parameters.Add(new SqlParameter("@Complement", compl));
+                commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandUpdate.ExecuteNonQuery();
+
+                status = true;
+            }
+            catch
+            {
+                status = false;
+                throw;
+            }
+
+
+            return status;
+        }
+
     }
 }

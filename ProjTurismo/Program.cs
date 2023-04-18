@@ -69,7 +69,7 @@ internal class Program
         //new AddressController().FindAll().ForEach(Console.WriteLine);
 
         // UPDATE
-        //new CityController().Update(3, "Araras");
+        //new AddressController().Update(4, "Rua A", "Bairro A", 100, "zip A", "complemento A");
 
         // DELETE
         // new AddressController().Delete(1);
@@ -167,7 +167,7 @@ internal class Program
         // new ClientController().Delete(3);
 
         // Select
-         new TicketController().FindAll().ForEach(Console.WriteLine);
+        // new TicketController().FindAll().ForEach(Console.WriteLine);
 
         #endregion
 

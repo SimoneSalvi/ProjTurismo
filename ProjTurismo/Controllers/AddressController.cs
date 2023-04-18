@@ -24,5 +24,10 @@ namespace ProjTurismo.Controllers
         {
             return new AddressService().DeleteById(Id);
         }
+
+        public bool Update(int id, string stret, string nei, int number, string zipC, string compl)
+        {
+            return new AddressService().Update(id, stret, nei, number, zipC, compl);
+        }
     }
 }
