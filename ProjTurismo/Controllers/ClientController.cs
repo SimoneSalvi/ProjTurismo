@@ -19,10 +19,9 @@ namespace ProjTurismo.Controllers
         {
             return new ClientService().FindAll();
         }
-
- /*       public int Delete(int Id)
+       public int Delete(int Id)
         {
             return new ClientService().DeleteById(Id);
-        }  */
+        }  
     }
 }

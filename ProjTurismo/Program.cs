@@ -79,33 +79,33 @@ internal class Program
 
         Client client = new Client()
         {
-            Name = "Simone",
-            Fone = "(16)33334455",
+            Name = "Fabio",
+            Fone = "(16)99887766",
             Address = new Address()
             {
-                Stret = "Av Brasil",
-                Neighborhood = "Jd. Paulistano",
-                Number = 24,
-                ZipCode = "14555000",
+                Stret = "Av Castelo Branco",
+                Neighborhood = "Centro",
+                Number = 34,
+                ZipCode = "2345234",
                 Complement = "",
                 DtCadastre = DateTime.Now,
                 City = new City()
                 {
-                    Description = "Birigui - SP"
+                    Description = "Rio de Janeiro - RJ"
                 }
             },
             DtCadstre = DateTime.Now,
         };
-
+          
         // Insert
-
         // if (new ClientController().Insert(client));
 
-        // Select
-          new ClientController().FindAll().ForEach(Console.WriteLine);
-
         // DELETE
-        // new AddressController().Delete(1);
+        // new ClientController().Delete(3);
+
+        // Select
+        // new ClientController().FindAll().ForEach(Console.WriteLine);
+
         #endregion
     }
 }
