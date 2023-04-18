@@ -101,10 +101,13 @@ internal class Program
         // if (new ClientController().Insert(client));
 
         // DELETE
-        // new ClientController().Delete(3);
+        //new ClientController().Delete(15);
 
         // Select
         // new ClientController().FindAll().ForEach(Console.WriteLine);
+
+        //UPDATE
+        //new ClientController().Update(5, "Susi", "foneSusi");
 
         #endregion
 

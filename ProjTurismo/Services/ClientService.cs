@@ -114,15 +114,47 @@ namespace ProjTurismo.Services
             return clientLst;
         }
 
-        // DELETE
-        public int DeleteById(int id)
+        /*       // DELETE
+               public int DeleteById(int id)
+               {
+
+                   string strDelete = "delete from Client where id = @id";
+                   SqlCommand commandDelete = new SqlCommand(strDelete, conn);
+                   commandDelete.Parameters.Add(new SqlParameter("@id", id));
+                   return (int)commandDelete.ExecuteNonQuery();
+
+               }  */
+
+        // UPDATE
+        // update Client set Name = 'RRRR', Fone = 'RRR fone' where Id = 6
+
+        public bool Update(int id, string name, string fone)
         {
+            Client client = new();
+            bool status = false;
 
-            string strDelete = "delete from Client where id = @id";
-            SqlCommand commandDelete = new SqlCommand(strDelete, conn);
-            commandDelete.Parameters.Add(new SqlParameter("@id", id));
-            return (int)commandDelete.ExecuteNonQuery();
+            try
+            {
+                string strUpdate = "update Client set Name = @Name, Fone = @Fone where Id = @Id";
+                SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
 
+
+                commandUpdate.Parameters.Add(new SqlParameter("@Name", name));
+                commandUpdate.Parameters.Add(new SqlParameter("@Fone", fone));
+                commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandUpdate.ExecuteNonQuery();
+
+                status = true;
+            }
+            catch
+            {
+                status = false;
+                throw;
+            }
+
+
+            return status;
         }
 
     }
