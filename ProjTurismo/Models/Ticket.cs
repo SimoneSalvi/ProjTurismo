@@ -14,8 +14,12 @@ namespace ProjTurismo.Models
         public Address Destination { get; set; }
         public Client Client { get; set; }
         public DateTime DtTicket { get; set; }
-        public double Value { get; set; }
+        public decimal Value { get; set; }
         #endregion
 
+        public override string ToString()
+        {
+            return $"°° TICKET Origem: {Origin.Id} e Destino: {Destination.Id}, Valor: R${Value}, Cliente: {Client.Id} °°";
+        }
     }
 }

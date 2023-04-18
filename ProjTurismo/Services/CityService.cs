@@ -82,7 +82,7 @@ namespace ProjTurismo.Services
         }
 
         // Update
-        /*
+        
         public bool Update(int id, string c)
         {
             City city = new();
@@ -94,8 +94,8 @@ namespace ProjTurismo.Services
                 SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
 
                 
-                commandUpdate.Parameters.Add(new SqlParameter("@Description", city.Description = c));
-                commandUpdate.Parameters.Add(new SqlParameter("@Id", city.Id));
+                commandUpdate.Parameters.Add(new SqlParameter("@Description", c));
+                commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
 
                 commandUpdate.ExecuteNonQuery();
 
@@ -110,6 +110,6 @@ namespace ProjTurismo.Services
 
             return status;
         }
-        */
+        
     }
 }

@@ -35,7 +35,7 @@ internal class Program
         //new CityController().FindAll().ForEach(Console.WriteLine);
 
         // UPDATE
-        //new CityController().Update(3, "Araras");
+        // new CityController().Update(3, "Araras");
 
         // DELETE
         // new CityController().Delete(1);
@@ -96,7 +96,7 @@ internal class Program
             },
             DtCadstre = DateTime.Now,
         };
-          
+
         // Insert
         // if (new ClientController().Insert(client));
 
@@ -107,5 +107,69 @@ internal class Program
         // new ClientController().FindAll().ForEach(Console.WriteLine);
 
         #endregion
+
+        #region Ticket
+        Ticket ticket = new()
+        {
+            Origin = new Address()
+            {
+                Stret = "origem 1",
+                Neighborhood = "Centro",
+                Number = 34,
+                ZipCode = "2345234",
+                Complement = "",
+                DtCadastre = DateTime.Now,
+                City = new City()
+                {
+                    Description = "cidade origem 1"
+                }
+            },
+            Destination = new Address()
+            {
+                Stret = "origem 2",
+                Neighborhood = "Centro",
+                Number = 34,
+                ZipCode = "2345234",
+                Complement = "",
+                DtCadastre = DateTime.Now,
+                City = new City()
+                {
+                    Description = "cidade origem 2"
+                }
+            },
+            Client = new Client()
+            {
+                Name = "Cliente 1",
+                Fone = "(16)99887766",
+                Address = new Address()
+                {
+                    Stret = "endereço cliente 1",
+                    Neighborhood = "Centro",
+                    Number = 34,
+                    ZipCode = "2345234",
+                    Complement = "",
+                    DtCadastre = DateTime.Now,
+                    City = new City()
+                    {
+                        Description = "cidade cliente 1"
+                    }
+                },
+                DtCadstre = DateTime.Now,
+            },
+            DtTicket = DateTime.Now,
+            Value = 2.00M
+        };
+
+        // Insert
+        // if (new TicketController().Insert(ticket));
+
+        // DELETE
+        // new ClientController().Delete(3);
+
+        // Select
+         new TicketController().FindAll().ForEach(Console.WriteLine);
+
+        #endregion
+
     }
 }

@@ -20,12 +20,12 @@ namespace ProjTurismo.Controllers
             return new CityService().FindAll();
         }
 
-        /*
+        
         public bool Update(int id, string c)
         {
             return new CityService().Update(id, c);
         }
-        */
+        
 
         public int Delete(int Id)
         {

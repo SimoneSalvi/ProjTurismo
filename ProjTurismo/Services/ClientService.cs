@@ -10,12 +10,12 @@ using ProjTurismo.Models;
 
 namespace ProjTurismo.Services
 {
-    public class ClientService
+    public class ClientService : SqlConnect
     {
         readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\BancoAula\ProjTurismoDB.mdf";
         readonly SqlConnection conn;
 
-        public ClientService()
+        public ClientService():base("")
         {
             conn = new SqlConnection(strConn);
             conn.Open();
@@ -114,16 +114,16 @@ namespace ProjTurismo.Services
             return clientLst;
         }
 
-                // DELETE
-                public int DeleteById(int id)
-                {
+        // DELETE
+        public int DeleteById(int id)
+        {
 
-                    string strDelete = "delete from Client where id = @id";
-                    SqlCommand commandDelete = new SqlCommand(strDelete, conn);
-                    commandDelete.Parameters.Add(new SqlParameter("@id", id));
-                    return (int)commandDelete.ExecuteNonQuery();
+            string strDelete = "delete from Client where id = @id";
+            SqlCommand commandDelete = new SqlCommand(strDelete, conn);
+            commandDelete.Parameters.Add(new SqlParameter("@id", id));
+            return (int)commandDelete.ExecuteNonQuery();
 
-                }
-          
+        }
+
     }
 }
