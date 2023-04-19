@@ -19,9 +19,14 @@ namespace ProjTurismo.Controllers
         {
             return new TicketService().FindAll();
         }
-        /*        public int Delete(int Id)
-                {
-                    return new TicketService().DeleteById(Id);
-                }*/
+        public int Delete(int Id)
+        {
+            return new TicketService().DeleteById(Id);
+        }
+
+        public bool Update(int id, int origin, int destn, int client, decimal value)
+        {
+            return new TicketService().Update(id, origin, destn, client, value);
+        }
     }
 }

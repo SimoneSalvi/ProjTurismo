@@ -128,16 +128,16 @@ namespace ProjTurismo.Services
                 {
                     Id = (int)reader["DestinationIdAddress"],
 
-                        Stret = "",
-                        Neighborhood = "",
-                        Number = 0,
-                        ZipCode = "",
-                        Complement = "",
-                        //DtCadastre = (DateTime)reader["DtCadastre"],
-                        City = new City()
-                        {
-                            Description = ""
-                        }
+                    Stret = "",
+                    Neighborhood = "",
+                    Number = 0,
+                    ZipCode = "",
+                    Complement = "",
+                    //DtCadastre = (DateTime)reader["DtCadastre"],
+                    City = new City()
+                    {
+                        Description = ""
+                    }
 
                 };
                 ticket.Client = new Client()
@@ -166,17 +166,50 @@ namespace ProjTurismo.Services
             return ticketLst;
         }
 
-        /*       // DELETE
-               public int DeleteById(int id)
-               {
+        // DELETE
+        public int DeleteById(int id)
+        {
 
-                   string strDelete = "delete from Client where id = @id";
-                   SqlCommand commandDelete = new SqlCommand(strDelete, conn);
-                   commandDelete.Parameters.Add(new SqlParameter("@id", id));
-                   return (int)commandDelete.ExecuteNonQuery();
+            string strDelete = "delete from Ticket where id = @id";
+            SqlCommand commandDelete = new SqlCommand(strDelete, conn);
+            commandDelete.Parameters.Add(new SqlParameter("@id", id));
+            return (int)commandDelete.ExecuteNonQuery();
 
-               }*/
+        }
+
+        //UPDATE
+        //  update Ticket set OriginIdAddress =10, DestinationIdAddress =11, IdClient=11, Value = 30 where Id = 1
+
+        public bool Update(int id, int origin, int destn, int client, decimal value)
+        {
+            Address address = new();
+            bool status = false;
+
+            try
+            {
+                string strUpdate = "update Ticket set OriginIdAddress = @OriginIdAddress, DestinationIdAddress = @DestinationIdAddress, IdClient = @IdClient, Value = @Value where Id = @Id";
+                SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
 
 
+                commandUpdate.Parameters.Add(new SqlParameter("@OriginIdAddress", origin));
+                commandUpdate.Parameters.Add(new SqlParameter("@DestinationIdAddress", destn));
+                commandUpdate.Parameters.Add(new SqlParameter("@IdClient", client));
+                commandUpdate.Parameters.Add(new SqlParameter("@Value", value));
+
+                commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
+
+                commandUpdate.ExecuteNonQuery();
+
+                status = true;
+            }
+            catch
+            {
+                status = false;
+                throw;
+            }
+
+
+            return status;
+        }
     }
 }

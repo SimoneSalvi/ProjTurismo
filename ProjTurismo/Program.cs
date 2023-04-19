@@ -167,10 +167,13 @@ internal class Program
         // if (new TicketController().Insert(ticket));
 
         // DELETE
-        // new ClientController().Delete(3);
+        //new TicketController().Delete(3);
 
         // Select
         // new TicketController().FindAll().ForEach(Console.WriteLine);
+
+        // Update
+        new TicketController().Update(1, 2, 2, 7, 70);
 
         #endregion
 
