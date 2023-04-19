@@ -10,12 +10,15 @@ namespace ProjTurismo.Models
     {
         #region Properties
         public int Id { get; set; }
-        public DateTime DtTicket { get; set; }
+        public string Name { get; set; }    
         public Address Address { get; set; }
         public DateTime DtCadastre { get; set; }
-        public double Value { get; set; }
+        public decimal Value { get; set; }
         #endregion
 
-
+        public override string ToString()
+        {
+            return $"---- HOTEL  Id: {Id}, Nome: {Name}, Endereço: {Address}, Valor: {Value}";
+        }
     }
 }

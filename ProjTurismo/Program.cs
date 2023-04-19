@@ -173,8 +173,39 @@ internal class Program
         // new TicketController().FindAll().ForEach(Console.WriteLine);
 
         // Update
-        new TicketController().Update(1, 2, 2, 7, 70);
+        //new TicketController().Update(1, 2, 2, 7, 70);
 
+        #endregion
+
+        #region Hotel
+        Hotel hotel = new()
+        {
+            Name = "Hotel 1",
+            Address = new Address()
+            {
+                Stret = "Av do Hotel 1",
+                Neighborhood = "Bairro do H1",
+                Number = 160,
+                ZipCode = "14555000",
+                Complement = "",
+                DtCadastre = DateTime.Now,
+                City = new City() { Description = "Piracicaba - SP" }
+            },
+            DtCadastre = DateTime.Now,
+            Value = 50
+        };
+
+        // INSERT
+        //new HotelController().Insert(hotel);
+
+        // SELECT
+        //new HotelController().FindAll().ForEach(Console.WriteLine);
+
+        //UPDATE
+        //new HotelController().Update(1, 40, "Hotel 10000", 31);
+
+        // DELETE
+        //new HotelController().Delete(1);
         #endregion
 
     }
