@@ -19,7 +19,9 @@ namespace ProjTurismo.Models
 
         public override string ToString()
         {
-            return $"°° TICKET Origem: {Origin.Id} e Destino: {Destination.Id}, Valor: R${Value}, Cliente: {Client.Id} °°";
+            return $"°° TICKET IdOrigem: {Origin.Id}, CidadeOrigem: {Origin.City.Description}, " +
+                $"e Destino: : {Destination.Id}, CidadeDestino: {Destination.City.Description}, " +
+                $"Valor do Ticket: R${Value}, Cliente: {Client.Name} °°";
         }
     }
 }

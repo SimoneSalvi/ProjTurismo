@@ -38,7 +38,7 @@ namespace ProjTurismo.Services
                 commandInsert.Parameters.Add(new SqlParameter("@ZipCode", address.ZipCode));
                 commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));
                 commandInsert.Parameters.Add(new SqlParameter("@DtCadastre", address.DtCadastre));
-                commandInsert.Parameters.Add(new SqlParameter("@IdCity", InsertCity(address)));
+                commandInsert.Parameters.Add(new SqlParameter("@IdCity", InsertCity(address.City)));
 
                 commandInsert.ExecuteNonQuery();
 
@@ -55,12 +55,12 @@ namespace ProjTurismo.Services
             return status;
         }
 
-        private int InsertCity(Address address)
+        private int InsertCity(City city)
         {
-            string strInsert = "insert into City (Description) values (@Description); select cast(scope_identity() as int)";
+            string strInsert = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro); select cast(scope_identity() as int)";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@Description", address.City.Description));
-            //commandInsert.Parameters.Add(new SqlParameter("@DtCadastro", address.City.DtCadastro));
+            commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
+            commandInsert.Parameters.Add(new SqlParameter("@DtCadastro", city.DtCadastro));
             return (int)commandInsert.ExecuteScalar();
         }
 

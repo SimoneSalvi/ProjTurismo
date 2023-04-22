@@ -74,9 +74,10 @@ namespace ProjTurismo.Services
 
         private int InsertCity(City city)
         {
-            string strInsert = "insert into City (Description) values (@Description); select cast(scope_identity() as int)";
+            string strInsert = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro); select cast(scope_identity() as int)";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
             commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
+            commandInsert.Parameters.Add(new SqlParameter("@DtCadastro", city.DtCadastro));
             return (int)commandInsert.ExecuteScalar();
         }
 
@@ -99,7 +100,20 @@ namespace ProjTurismo.Services
             List<Ticket> ticketLst = new List<Ticket>();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append(" select t.Id, t.OriginIdAddress, t.DestinationIdAddress, t.Value, c.Name from Ticket t, Client c where t.IdClient = c.Id");
+            //   sb.Append(" select t.Id, t.OriginIdAddress, t.DestinationIdAddress, t.Value, " +
+            //       "c.Name from Ticket t, Client c " +
+            //       "where t.IdClient = c.Id");
+
+            sb.Append("select t.Id, t.Value, " +
+                "t.OriginIdAddress, ci.Description as CidadeOrigem, " +
+                "t.DestinationIdAddress,  ci1.Description as CidadeDestino,  " +
+                "c.Name " +
+                "from Ticket t " +
+                "join Client c on t.IdClient = c.Id " +
+                "join Address a on t.OriginIdAddress = a.Id " +
+                "join Address a1 on t.DestinationIdAddress = a1.Id " +
+                "join City ci on a.idCity = ci.Id " +
+                "join City ci1 on a1.idCity = ci1.Id");
 
             SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);
             SqlDataReader reader = commandSelect.ExecuteReader();
@@ -121,7 +135,7 @@ namespace ProjTurismo.Services
                     //DtCadastre = (DateTime)reader["DtCadastre"],
                     City = new City()
                     {
-                        Description = ""
+                        Description = (string)reader["CidadeOrigem"]
                     }
                 };
                 ticket.Destination = new Address()
@@ -136,7 +150,7 @@ namespace ProjTurismo.Services
                     //DtCadastre = (DateTime)reader["DtCadastre"],
                     City = new City()
                     {
-                        Description = ""
+                        Description = (string)reader["CidadeDestino"]
                     }
 
                 };

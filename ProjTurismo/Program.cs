@@ -14,14 +14,53 @@ internal class Program
         #region City
         City city = new City()
         {
-            Description = "Araras - SP",
+            Description = "Barretos - SP",
             DtCadastro = DateTime.Now
         };
 
 
         // Insert
         /*
-        if (new CityController().Insert(city))
+         if (new CityController().Insert(city))
+         {
+             Console.WriteLine("Sucesso! Registro Inserido!");
+         }
+         else
+         {
+             Console.WriteLine("Erro ao inserir registro");
+         }
+         */
+
+        // UPDATE
+        // new CityController().Update(1065, "Lagoas - SP");
+
+        // DELETE
+        // new CityController().Delete(1);
+
+
+        // Select
+        //new CityController().FindAll().ForEach(Console.WriteLine);
+        #endregion
+
+        #region Address
+        Address address = new()
+        {
+            Stret = "Av Pernambuco",
+            Neighborhood = "Centro",
+            Number = 160,
+            ZipCode = "14555000",
+            Complement = "",
+            DtCadastre = DateTime.Now,
+            City = new City()
+            {
+                Description = "Belo Horizonte - BH",
+                DtCadastro = DateTime.Now
+            }
+        };
+
+        // Insert
+        /*
+        if (new AddressController().Insert(address))
         {
             Console.WriteLine("Sucesso! Registro Inserido!");
         }
@@ -31,55 +70,23 @@ internal class Program
         }
         */
 
-        // Select
-        //new CityController().FindAll().ForEach(Console.WriteLine);
-
-        // UPDATE
-        // new CityController().Update(3, "Araras");
-
-        // DELETE
-        // new CityController().Delete(1);
-        #endregion
-
-        #region Address
-        Address address = new()
-        {
-            Stret = "Av Feijo",
-            Neighborhood = "Centro",
-            Number = 160,
-            ZipCode = "14555000",
-            Complement = "",
-            DtCadastre = DateTime.Now,
-            City = new City() { Description = "Brotas - SP" }
-        };
-
-        // Insert
-        /*
-       if (new AddressController().Insert(address))
-       {
-           Console.WriteLine("Sucesso! Registro Inserido!");
-       }
-       else
-       {
-           Console.WriteLine("Erro ao inserir registro");
-       }
-        */
-
-        // Select
-        //new AddressController().FindAll().ForEach(Console.WriteLine);
-
         // UPDATE
         //new AddressController().Update(4, "Rua A", "Bairro A", 100, "zip A", "complemento A");
 
         // DELETE
         // new AddressController().Delete(1);
+
+
+        // Select
+        Console.WriteLine("\nEndereços:");
+        new AddressController().FindAll().ForEach(Console.WriteLine);
         #endregion
 
         #region Client
 
         Client client = new Client()
         {
-            Name = "Fabio",
+            Name = "Simone",
             Fone = "(16)99887766",
             Address = new Address()
             {
@@ -91,23 +98,25 @@ internal class Program
                 DtCadastre = DateTime.Now,
                 City = new City()
                 {
-                    Description = "Rio de Janeiro - RJ"
+                    Description = "Rio de Janeiro - RJ",
+                    DtCadastro = DateTime.Now
                 }
             },
             DtCadstre = DateTime.Now,
         };
 
         // Insert
-        // if (new ClientController().Insert(client));
+        //if (new ClientController().Insert(client));
 
         // DELETE
         //new ClientController().Delete(15);
 
-        // Select
-        // new ClientController().FindAll().ForEach(Console.WriteLine);
-
         //UPDATE
         //new ClientController().Update(5, "Susi", "foneSusi");
+
+        // Select
+        //Console.WriteLine("\n Clientes\n");
+        //new ClientController().FindAll().ForEach(Console.WriteLine);
 
         #endregion
 
@@ -116,7 +125,7 @@ internal class Program
         {
             Origin = new Address()
             {
-                Stret = "origem 1",
+                Stret = "Origem M",
                 Neighborhood = "Centro",
                 Number = 34,
                 ZipCode = "2345234",
@@ -124,12 +133,13 @@ internal class Program
                 DtCadastre = DateTime.Now,
                 City = new City()
                 {
-                    Description = "cidade origem 1"
+                    Description = "Origem M ",
+                    DtCadastro = DateTime.Now
                 }
             },
             Destination = new Address()
             {
-                Stret = "origem 2",
+                Stret = "Destino M",
                 Neighborhood = "Centro",
                 Number = 34,
                 ZipCode = "2345234",
@@ -137,16 +147,17 @@ internal class Program
                 DtCadastre = DateTime.Now,
                 City = new City()
                 {
-                    Description = "cidade origem 2"
+                    Description = "Destino M",
+                    DtCadastro = DateTime.Now
                 }
             },
             Client = new Client()
             {
-                Name = "Cliente 1",
+                Name = "Cliente M",
                 Fone = "(16)99887766",
                 Address = new Address()
                 {
-                    Stret = "endereço cliente 1",
+                    Stret = "endereço M",
                     Neighborhood = "Centro",
                     Number = 34,
                     ZipCode = "2345234",
@@ -154,7 +165,8 @@ internal class Program
                     DtCadastre = DateTime.Now,
                     City = new City()
                     {
-                        Description = "cidade cliente 1"
+                        Description = "cidade cliente M",
+                        DtCadastro = DateTime.Now
                     }
                 },
                 DtCadstre = DateTime.Now,
@@ -169,11 +181,12 @@ internal class Program
         // DELETE
         //new TicketController().Delete(3);
 
-        // Select
-        // new TicketController().FindAll().ForEach(Console.WriteLine);
-
         // Update
         //new TicketController().Update(1, 2, 2, 7, 70);
+
+        // Select
+        //Console.WriteLine("\n TICKETS :\n");
+        //new TicketController().FindAll().ForEach(Console.WriteLine);
 
         #endregion
 
@@ -189,7 +202,11 @@ internal class Program
                 ZipCode = "14555000",
                 Complement = "",
                 DtCadastre = DateTime.Now,
-                City = new City() { Description = "Piracicaba - SP" }
+                City = new City()
+                {
+                    Description = "Piracicaba - SP",
+                    DtCadastro = DateTime.Now
+                }
             },
             DtCadastre = DateTime.Now,
             Value = 50
@@ -199,7 +216,7 @@ internal class Program
         //new HotelController().Insert(hotel);
 
         // SELECT
-        //new HotelController().FindAll().ForEach(Console.WriteLine);
+        new HotelController().FindAll().ForEach(Console.WriteLine);
 
         //UPDATE
         //new HotelController().Update(1, 40, "Hotel 10000", 31);
@@ -208,5 +225,120 @@ internal class Program
         //new HotelController().Delete(1);
         #endregion
 
+        #region Package
+        Package package = new()
+        {
+            Hotel = new Hotel()
+            {
+                Name = "Hotel ",
+                Address = new Address()
+                {
+                    Stret = "Rua Hotel 1",
+                    Neighborhood = "Bairro do H1",
+                    Number = 160,
+                    ZipCode = "14555000",
+                    Complement = "",
+                    DtCadastre = DateTime.Now,
+                    City = new City()
+                    {
+                        Description = "Cidade Hotel 1 - SP, ",
+                        DtCadastro = DateTime.Now
+                    }
+                },
+                DtCadastre = DateTime.Now,
+                Value = 50
+            },
+            Ticket = new Ticket()
+            {
+                Origin = new Address()
+                {
+                    Stret = "Origem H1",
+                    Neighborhood = "Centro",
+                    Number = 34,
+                    ZipCode = "2345234",
+                    Complement = "",
+                    DtCadastre = DateTime.Now,
+                    City = new City()
+                    {
+                        Description = "cidade origem H1",
+                        DtCadastro = DateTime.Now
+                    }
+                },
+                Destination = new Address()
+                {
+                    Stret = "Destino H1",
+                    Neighborhood = "Centro",
+                    Number = 34,
+                    ZipCode = "2345234",
+                    Complement = "",
+                    DtCadastre = DateTime.Now,
+                    City = new City()
+                    {
+                        Description = "cidade destino H1",
+                        DtCadastro = DateTime.Now
+                    }
+                },
+                Client = new Client()
+                {
+                    Name = "Cliente H1",
+                    Fone = "(16)99887766",
+                    Address = new Address()
+                    {
+                        Stret = "endereço cliente H1",
+                        Neighborhood = "Centro",
+                        Number = 34,
+                        ZipCode = "2345234",
+                        Complement = "",
+                        DtCadastre = DateTime.Now,
+                        City = new City()
+                        {
+                            Description = "cidade cliente H1",
+                            DtCadastro = DateTime.Now
+                        }
+                    },
+                    DtCadstre = DateTime.Now,
+                },
+                DtTicket = DateTime.Now,
+                Value = 2.00M
+
+            },
+            DtCadastre = DateTime.Now,
+            Value = 5555,
+            Client = new Client()
+            {
+                Name = "Cliente H1",
+                Fone = "(16)99887766",
+                Address = new Address()
+                {
+                    Stret = "endereço cliente H1",
+                    Neighborhood = "Centro",
+                    Number = 34,
+                    ZipCode = "2345234",
+                    Complement = "",
+                    DtCadastre = DateTime.Now,
+                    City = new City()
+                    {
+                        Description = "cidade cliente H1",
+                        DtCadastro = DateTime.Now
+                    }
+                },
+                DtCadstre = DateTime.Now,
+            }
+        };
+
+        //INSERT
+        //new PackageController().Insert(package);
+
+        // UPDATE
+        // new CityController().Update();
+
+        // DELETE
+        // new CityController().Delete(1);
+
+        //SELECT
+        //Console.WriteLine("\n Pacotes:");
+        //new PackageController().FindAll().ForEach(Console.WriteLine);
+
+        #endregion
     }
 }

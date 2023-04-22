@@ -22,7 +22,7 @@ namespace ProjTurismo.Models
         #region Methods
         public override string ToString()
         {
-            return $"Logradouro: {Stret} nº{Number}, Bairro: {Neighborhood}, CEP: {ZipCode}, Complemento: {Complement}, Cidade: {City.Description}";
+            return $"Logradouro: {Stret} nº{Number}, Bairro: {Neighborhood}, CEP: {ZipCode}, Complemento: {Complement}, Cidade: {City}";
         }
         #endregion
     }

@@ -71,10 +71,10 @@ namespace ProjTurismo.Services
 
         private int InsertCity(Client client)
         {
-            string strInsert = "insert into City (Description) values (@Description); select cast(scope_identity() as int)";
+            string strInsert = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro); select cast(scope_identity() as int)";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
             commandInsert.Parameters.Add(new SqlParameter("@Description", client.Address.City.Description));
-            //commandInsert.Parameters.Add(new SqlParameter("@DtCadastro", address.City.DtCadastro));
+            commandInsert.Parameters.Add(new SqlParameter("@DtCadastro", client.Address.City.DtCadastro));
             return (int)commandInsert.ExecuteScalar();
         }
 
