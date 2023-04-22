@@ -14,12 +14,20 @@ internal class Program
         #region City
         City city = new City()
         {
-            Description = "Barretos - SP",
+            Description = "Teste Dapper - SP",
             DtCadastro = DateTime.Now
         };
 
+        City cityUpdate = new City()
+        {
+            Id = 1095,
+            Description = "Lagoas - SP",
+            DtCadastro = DateTime.Now
+        };
 
         // Insert
+        //new CityController().Insert(city);
+
         /*
          if (new CityController().Insert(city))
          {
@@ -32,10 +40,10 @@ internal class Program
          */
 
         // UPDATE
-        // new CityController().Update(1065, "Lagoas - SP");
+        //new CityController().Update(cityUpdate);
 
         // DELETE
-        // new CityController().Delete(1);
+        // new CityController().Delete(1094);
 
 
         // Select

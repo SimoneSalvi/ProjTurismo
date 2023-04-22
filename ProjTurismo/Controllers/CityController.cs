@@ -21,13 +21,13 @@ namespace ProjTurismo.Controllers
         }
 
         
-        public bool Update(int id, string c)
+        public bool Update(City city)
         {
-            return new CityService().Update(id, c);
+            return new CityService().Update(city);
         }
         
 
-        public int Delete(int Id)
+        public bool Delete(int Id)
         {
             return new CityService().DeleteById(Id);
         }

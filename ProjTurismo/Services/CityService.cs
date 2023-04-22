@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using ProjTurismo.Models;
 
 namespace ProjTurismo.Services
@@ -19,95 +20,69 @@ namespace ProjTurismo.Services
             conn.Open();
         }
 
+        //Conn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+
+
         // Insert
+
         public bool InsertCity(City city)
         {
             bool status = false;
+            string strInsert = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro)";
 
-            try
+
+            using (var db = new SqlConnection(strConn))
             {
-                string strInsert = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro)";
-                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-
-                commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
-                commandInsert.Parameters.Add(new SqlParameter("@DtCadastro", city.DtCadastro));
-
-                commandInsert.ExecuteNonQuery();
-
+                db.Open();
+                db.Execute(strInsert, city);
                 status = true;
             }
-            catch (Exception)
-            {
-                status = false;
-                throw;
-            }
-            {
-                conn.Close();
-            }
             return status;
+
         }
 
         // Select
+
         public List<City> FindAll()
         {
-            List<City> cityLst = new List<City>();
+            string strSelect = "select Id, Description, DtCadastro from City";
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append("select Id, Description, DtCadastro from City");
-
-            SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);
-            SqlDataReader reader = commandSelect.ExecuteReader();
-
-            while (reader.Read())
+            using (var db = new SqlConnection(strConn))
             {
-                City city = new City();
-
-                city.Id = (int)reader["Id"];
-                city.Description = (string)reader["Description"];
-                city.DtCadastro = (DateTime)reader["DtCadastro"];
-
-                cityLst.Add(city);
+                var cityLst = db.Query<City>(strSelect);
+                return (List<City>)cityLst;
             }
-            return cityLst;
         }
 
-        public int DeleteById(int id)
+       public bool DeleteById(int id)
         {
-
             string strDelete = "delete from City where id = @id";
-            SqlCommand commandDelete = new SqlCommand(strDelete, conn);
-            commandDelete.Parameters.Add(new SqlParameter("@id", id));
-            return (int)commandDelete.ExecuteNonQuery();
+            var status = false;
+            using (var db = new SqlConnection(strConn))
+            {
+                db.Open();
+                db.Execute(strDelete, new { Id = id });
+                status = true;
+            }
+            return status;
 
         }
+
 
         // Update
         
-        public bool Update(int id, string c)
+        public bool Update(City city)
         {
-            City city = new();
-            bool status = false;
+            string strUpdate = "update City set Description = @Description where Id = @Id;";
+           // City city = new();
 
-            try
+            var status = false;
+            using (var db = new SqlConnection(strConn))
             {
-                string strUpdate = "update City set Description = @Description where Id = @Id;";
-                SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
-
-                
-                commandUpdate.Parameters.Add(new SqlParameter("@Description", c));
-                commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
-
-                commandUpdate.ExecuteNonQuery();
-
+                db.Open();
+                db.Execute(strUpdate, city);
                 status = true;
             }
-            catch
-            {
-                status = false;
-                throw;
-            }
-
-
             return status;
         }
         
