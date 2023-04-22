@@ -6,85 +6,38 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using ProjTurismo.Models;
+using ProjTurismoADO.Repository;
 
 namespace ProjTurismo.Services
 {
     public class CityService
     {
-        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\BancoAula\ProjTurismoDB.mdf";
-        readonly SqlConnection conn;
+        private ICityRepository cityRepository;
 
         public CityService()
         {
-            conn = new SqlConnection(strConn);
-            conn.Open();
+            cityRepository = new CityRepository();
         }
 
-        //Conn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
-
-
-        // Insert
-
-        public bool InsertCity(City city)
+        public bool Insert(City city)
         {
-            bool status = false;
-            string strInsert = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro)";
-
-
-            using (var db = new SqlConnection(strConn))
-            {
-                db.Open();
-                db.Execute(strInsert, city);
-                status = true;
-            }
-            return status;
-
+            return cityRepository.Insert(city);
         }
 
-        // Select
-
-        public List<City> FindAll()
+        public List<City> GetAll()
         {
-            string strSelect = "select Id, Description, DtCadastro from City";
-
-            using (var db = new SqlConnection(strConn))
-            {
-                var cityLst = db.Query<City>(strSelect);
-                return (List<City>)cityLst;
-            }
+            return cityRepository.GetAll();
         }
 
-       public bool DeleteById(int id)
-        {
-            string strDelete = "delete from City where id = @id";
-            var status = false;
-            using (var db = new SqlConnection(strConn))
-            {
-                db.Open();
-                db.Execute(strDelete, new { Id = id });
-                status = true;
-            }
-            return status;
-
-        }
-
-
-        // Update
-        
         public bool Update(City city)
         {
-            string strUpdate = "update City set Description = @Description where Id = @Id;";
-           // City city = new();
-
-            var status = false;
-            using (var db = new SqlConnection(strConn))
-            {
-                db.Open();
-                db.Execute(strUpdate, city);
-                status = true;
-            }
-            return status;
+            return cityRepository.Update(city);
         }
-        
+
+        public bool Delete(int id)
+        {
+            return cityRepository.Delete(id);
+        }
+
     }
 }

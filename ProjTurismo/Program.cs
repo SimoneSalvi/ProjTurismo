@@ -14,7 +14,7 @@ internal class Program
         #region City
         City city = new City()
         {
-            Description = "Teste Dapper - SP",
+            Description = "Teste Dapper 2 - SP",
             DtCadastro = DateTime.Now
         };
 
@@ -47,13 +47,13 @@ internal class Program
 
 
         // Select
-        //new CityController().FindAll().ForEach(Console.WriteLine);
+        //new CityController().GetAll().ForEach(Console.WriteLine);
         #endregion
 
         #region Address
         Address address = new()
         {
-            Stret = "Av Pernambuco",
+            Stret = "Teste dapper",
             Neighborhood = "Centro",
             Number = 160,
             ZipCode = "14555000",
@@ -66,7 +66,26 @@ internal class Program
             }
         };
 
+        Address addressUpdate = new()
+        {
+            Id = 1085,
+            Stret = "teste XX",
+            Neighborhood = "Centro",
+            Number = 160,
+            ZipCode = "14555000",
+            Complement = "",
+            DtCadastre = DateTime.Now,
+            City = new City()
+            {
+                Id = 1093,
+                Description = "teste Update XX",
+                DtCadastro = DateTime.Now
+            }
+        };
+
         // Insert
+        //new AddressController().Insert(address);
+
         /*
         if (new AddressController().Insert(address))
         {
@@ -79,26 +98,26 @@ internal class Program
         */
 
         // UPDATE
-        //new AddressController().Update(4, "Rua A", "Bairro A", 100, "zip A", "complemento A");
+        //new AddressController().Update(addressUpdate);
 
         // DELETE
-        // new AddressController().Delete(1);
+        // new AddressController().Delete(1085);
 
 
         // Select
-        Console.WriteLine("\nEndereços:");
-        new AddressController().FindAll().ForEach(Console.WriteLine);
+        //Console.WriteLine("\nEndereços:");
+        //new AddressController().FindAll().ForEach(Console.WriteLine);
         #endregion
 
         #region Client
 
         Client client = new Client()
         {
-            Name = "Simone",
+            Name = "Simone Dapper Z",
             Fone = "(16)99887766",
             Address = new Address()
             {
-                Stret = "Av Castelo Branco",
+                Stret = "Av Dapper Z",
                 Neighborhood = "Centro",
                 Number = 34,
                 ZipCode = "2345234",
@@ -106,7 +125,28 @@ internal class Program
                 DtCadastre = DateTime.Now,
                 City = new City()
                 {
-                    Description = "Rio de Janeiro - RJ",
+                    Description = "Dapper ZS - RJ",
+                    DtCadastro = DateTime.Now
+                }
+            },
+            DtCadstre = DateTime.Now,
+        };
+        Client clientUpdate = new Client()
+        {
+            Id = 1032,
+            Name = "Simone Dapper Update",
+            Fone = "(16)99887766",
+            Address = new Address()
+            {
+                Stret = "Av Dapper Update Z",
+                Neighborhood = "Centro",
+                Number = 34,
+                ZipCode = "2345234",
+                Complement = "",
+                DtCadastre = DateTime.Now,
+                City = new City()
+                {
+                    Description = "Dapper Update ZS - RJ",
                     DtCadastro = DateTime.Now
                 }
             },
@@ -120,11 +160,11 @@ internal class Program
         //new ClientController().Delete(15);
 
         //UPDATE
-        //new ClientController().Update(5, "Susi", "foneSusi");
+        //new ClientController().Update(clientUpdate);
 
         // Select
         //Console.WriteLine("\n Clientes\n");
-        //new ClientController().FindAll().ForEach(Console.WriteLine);
+        //new ClientController().GetAll().ForEach(Console.WriteLine);
 
         #endregion
 

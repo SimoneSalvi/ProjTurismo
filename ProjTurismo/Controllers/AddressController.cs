@@ -17,17 +17,17 @@ namespace ProjTurismo.Controllers
 
         public List<Address> FindAll()
         {
-            return new AddressService().FindAll();
+            return new AddressService().GetAll();
         }
 
-        public int Delete(int Id)
+        public bool Delete(int id)
         {
-            return new AddressService().DeleteById(Id);
+            return new AddressService().Delete(id);
         }
 
-        public bool Update(int id, string stret, string nei, int number, string zipC, string compl)
+        public bool Update(Address address)
         {
-            return new AddressService().Update(id, stret, nei, number, zipC, compl);
+            return new AddressService().Update(address);
         }
     }
 }

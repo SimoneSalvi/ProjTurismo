@@ -12,12 +12,12 @@ namespace ProjTurismo.Controllers
     {
         public bool Insert(City city)
         {
-            return new CityService().InsertCity(city);
+            return new CityService().Insert(city);
         }
 
-        public List<City> FindAll()
+        public List<City> GetAll()
         {
-            return new CityService().FindAll();
+            return new CityService().GetAll();
         }
 
         
@@ -29,7 +29,7 @@ namespace ProjTurismo.Controllers
 
         public bool Delete(int Id)
         {
-            return new CityService().DeleteById(Id);
+            return new CityService().Delete(Id);
         }
     }
 }

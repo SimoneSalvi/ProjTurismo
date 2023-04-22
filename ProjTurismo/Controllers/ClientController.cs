@@ -15,18 +15,18 @@ namespace ProjTurismo.Controllers
             return new ClientService().Insert(client);
         }
 
-        public List<Client> FindAll()
+        public List<Client> GetAll()
         {
-            return new ClientService().FindAll();
+            return new ClientService().GetAll();
         }
  /*      public int Delete(int Id)
         {
-            return new ClientService().DeleteById(Id);
+            return new ClientService().Delete(Id);
         }  */
 
-        public bool Update(int id, string name, string fone)
+        public bool Update(Client client)
         {
-            return new ClientService().Update(id, name, fone);
+            return new ClientService().Update(client);
         }
     }
 }
