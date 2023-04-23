@@ -17,7 +17,10 @@ select p.id as IdPacote, p.Value as ValorPacote,
 				join City ci on a.idCity = ci.Id
 				join City ci1 on a1.idCity = ci1.Id
 
-
+update Package set Hotel = @Hotel, Ticket = @Ticket, 
+					dtCadastre = @DtCadastre, 
+					Value = Value, Client = Client
+				where id = @Id
 
 
 
@@ -26,7 +29,7 @@ select * from hotel;
 --delete from hotel;
 
 select * from Ticket;
---delete from Ticket;
+delete from Ticket where id = 1012;
 select t.Id as IdTicket, 
        t.OriginIdAddress as IdOrigem, 
 	   t.Value as ValorTicket, 
@@ -57,7 +60,6 @@ select t.Id, t.Value,
 				join City ci on a.idCity = ci.Id
 				join City ci1 on a1.idCity = ci1.Id
 				
-
 
 select * from client;
 --delete from client;

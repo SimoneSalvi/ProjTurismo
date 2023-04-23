@@ -15,9 +15,9 @@ namespace ProjTurismo.Controllers
             return new PackageService().Insert(package);
         }
 
-        public List<Package> FindAll()
+        public List<Package> GetAll()
         {
-            return new PackageService().FindAll();
+            return new PackageService().GetAll();
         }
 /*        public int Delete(int Id)
         {
