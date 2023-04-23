@@ -39,8 +39,5 @@ namespace ProjTurismo.Services
         {
             return addressRepository.Delete(id);
         }
-
-
-
     }
 }
