@@ -45,7 +45,7 @@ namespace ProjTurismoADO.Repository
                 var cidadeD = db.ExecuteScalar(strInsertCi, ticket.Destination.City);
                 var cidadeC = db.ExecuteScalar(strInsertCi, ticket.Client.Address.City);
 
-                var enderecoO = db.Execute(strInsertA, new
+                var enderecoO = db.ExecuteScalar(strInsertA, new
                 {
                     IdCity = cidadeO,
                     Stret = ticket.Origin.Stret,
@@ -56,7 +56,7 @@ namespace ProjTurismoADO.Repository
                     DtCadastre = ticket.Origin.DtCadastre
                 });
 
-                var enderecoD = db.Execute(strInsertA, new
+                var enderecoD = db.ExecuteScalar(strInsertA, new
                 {
                     IdCity = cidadeD,
                     Stret = ticket.Destination.Stret,
@@ -67,7 +67,7 @@ namespace ProjTurismoADO.Repository
                     DtCadastre = ticket.Destination.DtCadastre
                 });
 
-                var enderecoC = db.Execute(strInsertA, new
+                var enderecoC = db.ExecuteScalar(strInsertA, new
                 {
                     IdCity = cidadeC,
                     Stret = ticket.Destination.Stret,
@@ -78,7 +78,7 @@ namespace ProjTurismoADO.Repository
                     DtCadastre = ticket.Destination.DtCadastre
                 });
 
-                var cliente = db.Execute(strInsertC, new
+                var cliente = db.ExecuteScalar(strInsertC, new
                 {
                     IdAddress = enderecoC,
                     Name = ticket.Client.Name,

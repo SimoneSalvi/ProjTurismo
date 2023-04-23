@@ -40,7 +40,7 @@ namespace ProjTurismoADO.Repository
                 db.Open();
                 var cidade = db.ExecuteScalar(strInsertCi, client.Address.City);
 
-                var endereco = db.Execute(strInsertA, new
+                var endereco = db.ExecuteScalar(strInsertA, new
                 {
                     IdCity = cidade,
                     Stret = client.Address.Stret,
@@ -54,9 +54,9 @@ namespace ProjTurismoADO.Repository
                 db.Execute(strInsertC, new
                 {
                     IdAddress = endereco,
-                    Nome = client.Name,
+                    Name = client.Name,
                     Fone = client.Fone,
-                    DtCadastre = client.DtCadstre
+                    DtCadstre = client.DtCadstre
                 });
             }
             return status;

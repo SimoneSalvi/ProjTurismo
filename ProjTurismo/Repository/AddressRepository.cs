@@ -36,8 +36,8 @@ namespace ProjTurismoADO.Repository
             using (var db = new SqlConnection(strConn))
             {
                 db.Open();
-                var cidade = db.ExecuteScalar(strInsertC, address.City);
-
+               var cidade = db.ExecuteScalar(strInsertC, address.City);
+                Console.WriteLine("cidade : " + cidade);
                 db.Execute(strInsertA, new
                 {
                     IdCity = cidade,

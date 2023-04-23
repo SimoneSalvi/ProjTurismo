@@ -84,7 +84,7 @@ internal class Program
         };
 
         // Insert
-        //new AddressController().Insert(address);
+        new AddressController().Insert(address);
 
         /*
         if (new AddressController().Insert(address))
@@ -154,7 +154,7 @@ internal class Program
         };
 
         // Insert
-        //if (new ClientController().Insert(client));
+        //new ClientController().Insert(client);
 
         // DELETE
         //new ClientController().Delete(15);
@@ -224,7 +224,7 @@ internal class Program
         };
 
         // Insert
-        //if (new TicketController().Insert(ticket));
+        //new TicketController().Insert(ticket);
 
         // DELETE
         //new TicketController().Delete(3);
@@ -241,7 +241,7 @@ internal class Program
         #region Hotel
         Hotel hotel = new()
         {
-            Name = "Hotel 1",
+            Name = "Hotel dapper",
             Address = new Address()
             {
                 Stret = "Av do Hotel 1",
@@ -252,7 +252,7 @@ internal class Program
                 DtCadastre = DateTime.Now,
                 City = new City()
                 {
-                    Description = "Piracicaba - SP",
+                    Description = "Cidade Dapper",
                     DtCadastro = DateTime.Now
                 }
             },
@@ -264,10 +264,10 @@ internal class Program
         //new HotelController().Insert(hotel);
 
         // SELECT
-        new HotelController().FindAll().ForEach(Console.WriteLine);
+        //new HotelController().GetAll().ForEach(Console.WriteLine);
 
         //UPDATE
-        //new HotelController().Update(1, 40, "Hotel 10000", 31);
+        //new HotelController().Update(Hotel hotel);
 
         // DELETE
         //new HotelController().Delete(1);

@@ -15,18 +15,18 @@ namespace ProjTurismo.Controllers
             return new HotelService().Insert(hotel);
         }
 
-       public List<Hotel> FindAll()
+       public List<Hotel> GetAll()
         {
-            return new HotelService().FindAll();
+            return new HotelService().GetAll();
         }
-       public int Delete(int Id)
+       public bool Delete(int Id)
         {
-            return new HotelService().DeleteById(Id);
+            return new HotelService().Delete(Id);
         }
 
-        public bool Update(int id, int address, string name, decimal value)
+        public bool Update(Hotel hotel)
         {
-            return new HotelService().Update(id, address, name, value);
+            return new HotelService().Update(hotel);
         }
     }
 }
