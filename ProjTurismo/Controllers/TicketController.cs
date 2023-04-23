@@ -15,18 +15,18 @@ namespace ProjTurismo.Controllers
             return new TicketService().Insert(ticket);
         }
 
-        public List<Ticket> FindAll()
+        public List<Ticket> GetAll()
         {
-            return new TicketService().FindAll();
+            return new TicketService().GetAll();
         }
-        public int Delete(int Id)
+        public bool Delete(int Id)
         {
-            return new TicketService().DeleteById(Id);
+            return new TicketService().Delete(Id);
         }
 
-        public bool Update(int id, int origin, int destn, int client, decimal value)
+        public bool Update(Ticket ticket)
         {
-            return new TicketService().Update(id, origin, destn, client, value);
+            return new TicketService().Update(ticket);
         }
     }
 }

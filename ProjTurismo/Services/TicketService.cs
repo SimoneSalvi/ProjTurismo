@@ -9,221 +9,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using ProjTurismo.Models;
+using ProjTurismoADO.Repository;
 
 namespace ProjTurismo.Services
 {
     public class TicketService
     {
-
-        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\BancoAula\ProjTurismoDB.mdf";
-        readonly SqlConnection conn;
+        private ITicketRepository ticketRepository;
 
         public TicketService()
         {
-            conn = new SqlConnection(strConn);
-            conn.Open();
+            ticketRepository = new TicketRepository();
         }
 
-        // Insert
         public bool Insert(Ticket ticket)
         {
-            bool status = false;
-
-            try
-            {
-                string strInsert = "insert into Ticket (OriginIdAddress, DestinationIdAddress, IdClient, DtTicket, Value)" +
-                    " values (@OriginIdAddress, @DestinationIdAddress, @IdClient, @DtTicket, @Value)";
-                SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-
-                commandInsert.Parameters.Add(new SqlParameter("@OriginIdAddress", InsertAddress(ticket.Origin)));
-                commandInsert.Parameters.Add(new SqlParameter("@DestinationIdAddress", InsertAddress(ticket.Destination)));
-                commandInsert.Parameters.Add(new SqlParameter("@IdClient", InsertClient(ticket.Client)));
-                commandInsert.Parameters.Add(new SqlParameter("@DtTicket", ticket.DtTicket));
-                commandInsert.Parameters.Add(new SqlParameter("@Value", ticket.Value));
-
-                commandInsert.ExecuteNonQuery();
-
-                status = true;
-            }
-            catch (Exception)
-            {
-                status = false;
-                throw;
-            }
-            {
-                conn.Close();
-            }
-            return status;
+            return ticketRepository.Insert(ticket);
         }
 
-        private int InsertAddress(Address address)
+        public List<Ticket> GetAll()
         {
-            string strInsert = "insert into Address (Stret, Neighborhood, Number, ZipCode, Complement, DtCadastre, IdCity)" +
-                " values (@Stret, @Neighborhood, @Number, @ZipCode, @Complement, @DtCadastre, @IdCity); select cast(scope_identity() as int)";
-            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@Stret", address.Stret));
-            commandInsert.Parameters.Add(new SqlParameter("@Neighborhood", address.Neighborhood));
-            commandInsert.Parameters.Add(new SqlParameter("@Number", address.Number));
-            commandInsert.Parameters.Add(new SqlParameter("@ZipCode", address.ZipCode));
-            commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));
-            commandInsert.Parameters.Add(new SqlParameter("@DtCadastre", address.DtCadastre));
-            commandInsert.Parameters.Add(new SqlParameter("@IdCity", InsertCity(address.City)));
-
-            return (int)commandInsert.ExecuteScalar();
+            return ticketRepository.GetAll();
         }
 
-        private int InsertCity(City city)
+        public bool Update(Ticket ticket)
         {
-            string strInsert = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro); select cast(scope_identity() as int)";
-            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
-            commandInsert.Parameters.Add(new SqlParameter("@DtCadastro", city.DtCadastro));
-            return (int)commandInsert.ExecuteScalar();
+            return ticketRepository.Update(ticket);
         }
 
-        private int InsertClient(Client client)
+        public bool Delete(int id)
         {
-            string strInsert = "insert into client (Name, Fone, IdAddress, DtCadstre)" +
-                " values (@Name, @Fone, @IdAddress, @DtCadstre); select cast(scope_identity() as int)";
-            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@Name", client.Name));
-            commandInsert.Parameters.Add(new SqlParameter("@Fone", client.Fone));
-            commandInsert.Parameters.Add(new SqlParameter("@IdAddress", InsertAddress(client.Address)));
-            commandInsert.Parameters.Add(new SqlParameter("@DtCadstre", client.DtCadstre));
-
-            return (int)commandInsert.ExecuteScalar();
-        }
-
-        // Select
-        public List<Ticket> FindAll()
-        {
-            List<Ticket> ticketLst = new List<Ticket>();
-
-            StringBuilder sb = new StringBuilder();
-            //   sb.Append(" select t.Id, t.OriginIdAddress, t.DestinationIdAddress, t.Value, " +
-            //       "c.Name from Ticket t, Client c " +
-            //       "where t.IdClient = c.Id");
-
-            sb.Append("select t.Id, t.Value, " +
-                "t.OriginIdAddress, ci.Description as CidadeOrigem, " +
-                "t.DestinationIdAddress,  ci1.Description as CidadeDestino,  " +
-                "c.Name " +
-                "from Ticket t " +
-                "join Client c on t.IdClient = c.Id " +
-                "join Address a on t.OriginIdAddress = a.Id " +
-                "join Address a1 on t.DestinationIdAddress = a1.Id " +
-                "join City ci on a.idCity = ci.Id " +
-                "join City ci1 on a1.idCity = ci1.Id");
-
-            SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);
-            SqlDataReader reader = commandSelect.ExecuteReader();
-
-            while (reader.Read())
-            {
-                Ticket ticket = new Ticket();
-                ticket.Id = (int)reader["ID"];
-                //ticket.DtTicket = (DateTime)reader["DtTicket"];
-                ticket.Value = Convert.ToDecimal(reader["Value"]);
-                ticket.Origin = new Address()
-                {
-                    Id = (int)reader["OriginIdAddress"],
-                    Stret = "",
-                    Neighborhood = "",
-                    Number = 0,
-                    ZipCode = "",
-                    Complement = "",
-                    //DtCadastre = (DateTime)reader["DtCadastre"],
-                    City = new City()
-                    {
-                        Description = (string)reader["CidadeOrigem"]
-                    }
-                };
-                ticket.Destination = new Address()
-                {
-                    Id = (int)reader["DestinationIdAddress"],
-
-                    Stret = "",
-                    Neighborhood = "",
-                    Number = 0,
-                    ZipCode = "",
-                    Complement = "",
-                    //DtCadastre = (DateTime)reader["DtCadastre"],
-                    City = new City()
-                    {
-                        Description = (string)reader["CidadeDestino"]
-                    }
-
-                };
-                ticket.Client = new Client()
-                {
-                    Id = (int)reader["Id"],
-                    Name = (string)reader["Name"],
-                    Fone = "",
-                    //DtCadstre = (DateTime)reader["DtCadstre"],
-                    Address = new Address()
-                    {
-                        Id = 0,
-                        Stret = "",
-                        Neighborhood = "",
-                        Number = 0,
-                        ZipCode = "",
-                        Complement = "",
-                        //DtCadastre = (DateTime)reader["DtCadastre"],
-                        City = new City()
-                        {
-                            Description = ""
-                        }
-                    }
-                };
-                ticketLst.Add(ticket);
-            }
-            return ticketLst;
-        }
-
-        // DELETE
-        public int DeleteById(int id)
-        {
-
-            string strDelete = "delete from Ticket where id = @id";
-            SqlCommand commandDelete = new SqlCommand(strDelete, conn);
-            commandDelete.Parameters.Add(new SqlParameter("@id", id));
-            return (int)commandDelete.ExecuteNonQuery();
-
-        }
-
-        //UPDATE
-        //  update Ticket set OriginIdAddress =10, DestinationIdAddress =11, IdClient=11, Value = 30 where Id = 1
-
-        public bool Update(int id, int origin, int destn, int client, decimal value)
-        {
-            Address address = new();
-            bool status = false;
-
-            try
-            {
-                string strUpdate = "update Ticket set OriginIdAddress = @OriginIdAddress, DestinationIdAddress = @DestinationIdAddress, IdClient = @IdClient, Value = @Value where Id = @Id";
-                SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
-
-
-                commandUpdate.Parameters.Add(new SqlParameter("@OriginIdAddress", origin));
-                commandUpdate.Parameters.Add(new SqlParameter("@DestinationIdAddress", destn));
-                commandUpdate.Parameters.Add(new SqlParameter("@IdClient", client));
-                commandUpdate.Parameters.Add(new SqlParameter("@Value", value));
-
-                commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
-
-                commandUpdate.ExecuteNonQuery();
-
-                status = true;
-            }
-            catch
-            {
-                status = false;
-                throw;
-            }
-
-
-            return status;
+            return ticketRepository.Delete(id);
         }
     }
 }

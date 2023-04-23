@@ -173,7 +173,7 @@ internal class Program
         {
             Origin = new Address()
             {
-                Stret = "Origem M",
+                Stret = "Origem DD",
                 Neighborhood = "Centro",
                 Number = 34,
                 ZipCode = "2345234",
@@ -181,13 +181,13 @@ internal class Program
                 DtCadastre = DateTime.Now,
                 City = new City()
                 {
-                    Description = "Origem M ",
+                    Description = "Cidade Origem DD ",
                     DtCadastro = DateTime.Now
                 }
             },
             Destination = new Address()
             {
-                Stret = "Destino M",
+                Stret = "Destino DD",
                 Neighborhood = "Centro",
                 Number = 34,
                 ZipCode = "2345234",
@@ -195,17 +195,17 @@ internal class Program
                 DtCadastre = DateTime.Now,
                 City = new City()
                 {
-                    Description = "Destino M",
+                    Description = "Cidade Destino DD",
                     DtCadastro = DateTime.Now
                 }
             },
             Client = new Client()
             {
-                Name = "Cliente M",
+                Name = "Cliente DD",
                 Fone = "(16)99887766",
                 Address = new Address()
                 {
-                    Stret = "endereço M",
+                    Stret = "Cliente endereço DD",
                     Neighborhood = "Centro",
                     Number = 34,
                     ZipCode = "2345234",
@@ -213,7 +213,7 @@ internal class Program
                     DtCadastre = DateTime.Now,
                     City = new City()
                     {
-                        Description = "cidade cliente M",
+                        Description = "cidade cliente DD",
                         DtCadastro = DateTime.Now
                     }
                 },
@@ -224,7 +224,7 @@ internal class Program
         };
 
         // Insert
-        // if (new TicketController().Insert(ticket));
+        //if (new TicketController().Insert(ticket));
 
         // DELETE
         //new TicketController().Delete(3);
@@ -234,7 +234,7 @@ internal class Program
 
         // Select
         //Console.WriteLine("\n TICKETS :\n");
-        //new TicketController().FindAll().ForEach(Console.WriteLine);
+        //new TicketController().GetAll().ForEach(Console.WriteLine);
 
         #endregion
 

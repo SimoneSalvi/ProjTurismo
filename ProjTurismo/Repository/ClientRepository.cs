@@ -99,41 +99,7 @@ namespace ProjTurismoADO.Repository
             }
         }
 
-        // Select
-        public List<Client> FindAll()
-        {
-            List<Client> clientLst = new List<Client>();
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("select c.Id, c.Name, c.Fone, a.Stret, a.Neighborhood, a.Number, a.ZipCode, a.Complement, a.DtCadastre, ci.Description, c.DtCadstre from Client c, Address a, City ci where a.Id = c.IdAddress and ci.Id = a.idCity");
-
-            SqlCommand commandSelect = new SqlCommand(sb.ToString(), conn);
-            SqlDataReader reader = commandSelect.ExecuteReader();
-
-            while (reader.Read())
-            {
-                Client client = new Client();
-                client.Id = (int)reader["Id"];
-                client.Name = (string)reader["Name"];
-                client.Fone = (string)reader["Fone"];
-                client.DtCadstre = (DateTime)reader["DtCadstre"];
-                client.Address = new Address()
-                {
-                    Stret = (string)reader["Stret"],
-                    Neighborhood = (string)reader["Neighborhood"],
-                    Number = (int)reader["Number"],
-                    ZipCode = (string)reader["ZipCode"],
-                    Complement = (string)reader["Complement"],
-                    DtCadastre = (DateTime)reader["DtCadastre"],
-                    City = new City()
-                    {
-                        Description = (string)reader["Description"]
-                    }
-                };
-                clientLst.Add(client);
-            }
-            return clientLst;
-        }
+ 
 
         /*       // DELETE
                public int DeleteById(int id)
@@ -146,36 +112,6 @@ namespace ProjTurismoADO.Repository
 
                }  */
 
-        // UPDATE
-        // update Client set Name = 'RRRR', Fone = 'RRR fone' where Id = 6
 
-        public bool Update(int id, string name, string fone)
-        {
-            Client client = new();
-            bool status = false;
-
-            try
-            {
-                string strUpdate = "update Client set Name = @Name, Fone = @Fone where Id = @Id";
-                SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
-
-
-                commandUpdate.Parameters.Add(new SqlParameter("@Name", name));
-                commandUpdate.Parameters.Add(new SqlParameter("@Fone", fone));
-                commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
-
-                commandUpdate.ExecuteNonQuery();
-
-                status = true;
-            }
-            catch
-            {
-                status = false;
-                throw;
-            }
-
-
-            return status;
-        }
     }
 }
