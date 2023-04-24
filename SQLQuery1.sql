@@ -3,6 +3,10 @@
 insert into Package (Hotel, Ticket, DtCadastre, Value, Client) values 
                     (@Hotel, @Ticket, @DtCadastre, @Value, @Client)
 
+	insert into Package (Hotel, Ticket, DtCadastre, Value, Client) values 
+					    (1019, 1018, CURRENT_TIMESTAMP, 40, 2046)
+
+
 select p.id as IdPacote, p.Value as ValorPacote, 
 				h.Name as NomeHotel, 
 				t.OriginIdAddress as IdOrigem, ci.Description as CidadeOrigem,

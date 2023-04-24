@@ -30,10 +30,10 @@ namespace ProjTurismoADO.Repository
                 "values (@Name, @Fone, @IdAddress, @DtCadstre)";
 
             string strInsertA = "insert into Address(Stret, Neighborhood, Number, ZipCode, Complement, DtCadastre, IdCity) " +
-                 "values (@Stret, @Neighborhood, @Number, @ZipCode, @Complement, @DtCadastre, @IdCity)";
+                 "values (@Stret, @Neighborhood, @Number, @ZipCode, @Complement, @DtCadastre, @IdCity); select cast(scope_identity() as int)";
 
 
-            string strInsertCi = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro)";
+            string strInsertCi = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro); select cast(scope_identity() as int)";
 
             using (var db = new SqlConnection(strConn))
             {

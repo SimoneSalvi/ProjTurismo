@@ -14,7 +14,7 @@ internal class Program
         #region City
         City city = new City()
         {
-            Description = "Teste Dapper 2 - SP",
+            Description = "Araraquara - SP",
             DtCadastro = DateTime.Now
         };
 
@@ -84,7 +84,7 @@ internal class Program
         };
 
         // Insert
-        new AddressController().Insert(address);
+        //new AddressController().Insert(address);
 
         /*
         if (new AddressController().Insert(address))
@@ -375,7 +375,7 @@ internal class Program
         };
 
         //INSERT
-        //new PackageController().Insert(package);
+        new PackageController().Insert(package);
 
         // UPDATE
         // new CityController().Update();

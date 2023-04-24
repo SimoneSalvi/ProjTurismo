@@ -32,18 +32,18 @@ namespace ProjTurismoADO.Repository
                     "(@Hotel, @Ticket, @DtCadastre, @Value, @Client)";
 
             string strInsertT = "insert into Ticket (OriginIdAddress, DestinationIdAddress, IdClient, DtTicket, Value)" +
-                    " values (@OriginIdAddress, @DestinationIdAddress, @IdClient, @DtTicket, @Value)";
+                    " values (@OriginIdAddress, @DestinationIdAddress, @IdClient, @DtTicket, @Value); select cast(scope_identity() as int)";
 
             string strInsertH = "insert into Hotel (Address, Name, DtCadastre, Value) " +
-                    "values (@Address, @Name, @DtCadastre, @Value)";
+                    "values (@Address, @Name, @DtCadastre, @Value); select cast(scope_identity() as int)";
 
             string strInsertC = "insert into client (Name, Fone, IdAddress, DtCadstre) " +
-                    "values (@Name, @Fone, @IdAddress, @DtCadstre)";
+                    "values (@Name, @Fone, @IdAddress, @DtCadstre); select cast(scope_identity() as int)";
 
             string strInsertA = "insert into Address(Stret, Neighborhood, Number, ZipCode, Complement, DtCadastre, IdCity) " +
-                    "values (@Stret, @Neighborhood, @Number, @ZipCode, @Complement, @DtCadastre, @IdCity)";
+                    "values (@Stret, @Neighborhood, @Number, @ZipCode, @Complement, @DtCadastre, @IdCity); select cast(scope_identity() as int)";
 
-            string strInsertCi = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro)";
+            string strInsertCi = "insert into City (Description, DtCadastro) values (@Description, @DtCadastro); select cast(scope_identity() as int)";
 
             using (var db = new SqlConnection(strConn))
             {
@@ -51,7 +51,7 @@ namespace ProjTurismoADO.Repository
                 var cidadeO = db.ExecuteScalar(strInsertCi, package.Ticket.Origin.City);
                 var cidadeD = db.ExecuteScalar(strInsertCi, package.Ticket.Destination.City);
                 var cidadeC = db.ExecuteScalar(strInsertCi, package.Ticket.Client.Address.City);
-                var cidadeH = db.ExecuteScalar(strInsertH, package.Hotel.Address.City);
+                var cidadeH = db.ExecuteScalar(strInsertCi, package.Hotel.Address.City);
 
                 var enderecoO = db.ExecuteScalar(strInsertA, new
                 {
